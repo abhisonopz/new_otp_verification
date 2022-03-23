@@ -1,0 +1,138 @@
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section"><b>REGISTRATION FORM</b></h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="col-md-12 col-lg-10">
+                <div class="wrap d-md-flex">
+                    <div class="img" style="background-image: url(../assets/images/img.jpg);">
+                    </div>
+                 
+                    <div *ngIf="main" class="container login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3 class="mb-4" style="color: #464646;">Sign Up</h3>
+                            </div>
+
+                        </div>
+                        <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group mb-3">
+                                <label class="label" for="name">Full Name</label><span class="mandatory">*</span>
+                                <input type="text" formControlName="fullname" class="form-control"
+                                    placeholder="Enter Name"
+                                    [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+                                <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                                    <div *ngIf="f.fullname.errors.required">FullName is required</div>
+                                </div>
+                                <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                                    <div *ngIf="f.fullname.errors.maxlength">maximun character is 140</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+
+                                <label class="label" for="password">mobile</label><span class="mandatory">*</span>
+                                <div class="input-box">
+                                    <span class="prefix">+91</span>
+                                    <input type="number" formControlName="mobile" class="form-control"
+                                        placeholder="Enter Number"
+                                        [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" minlength="10">
+                                    <br>
+                                    <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                        <div *ngIf="f.mobile.errors.required">mobile number is required</div>
+                                        <div *ngIf="f.mobile.errors.pattern">Invalid number</div>
+                                        <div *ngIf="f.mobile.errors.minLength">Invalid number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="label" for="password">city</label><span class="mandatory">*</span>
+                                <input type="text" formControlName="city" class="form-control" placeholder="Enter City"
+                                    [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                                <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                    <div *ngIf="f.city.errors.required">City is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="label" for="password">email</label><span class="mandatory">*</span>
+                                <input type="text" formControlName="email" class="form-control" placeholder="Email"
+                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Email is required</div>
+                                </div>
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.pattern">Invalid email</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="label" for="password">PanNumber</label><span class="mandatory">*</span>
+                                <input type="text" formControlName="panNumber" class="form-control"
+                                    placeholder="Enter Pan Number"
+                                    [ngClass]="{ 'is-invalid': submitted && f.panNumber.errors }">
+                                <div *ngIf="submitted && f.panNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.panNumber.errors.required">PanNumber is required</div>
+                                </div>
+                                <div *ngIf="submitted && f.panNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.panNumber.errors.pattern">Invalid PanNumber</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit"
+                                    class="form-control btn btn-primary rounded submit px-3">Submit</button>
+                            </div>
+                        </form>
+                      
+                    </div>
+
+
+                    <!-- /////////////////////////////////OTP///////////////////////////////////// -->
+                    <div *ngIf="isShown" class="login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3 class="mb-4" style="color: #464646;">OTP VERIFICATION</h3>
+                            </div>
+
+                        </div>
+                        <form [formGroup]="otpForm">
+                            <div class="form-group mb-3">
+                                <label class="label" for="name">OTP</label>
+                                <div class="row">
+                                    <input type="text" formControlName="otp" class="form-control"
+                                        placeholder="Enter OTP" [ngClass]="{ 'is-invalid': otpsubmitted && g.otp.errors }" maxlength="4">
+                                        <div *ngIf="otpsubmitted && g.otp.errors" class="invalid-feedback">
+                                            <div *ngIf="g.otp.errors.required">OTP Number is required</div>
+                                        </div>
+                                        <div *ngIf="otpsubmitted && g.otp.errors" class="invalid-feedback">
+                                            <div *ngIf="g.otp.errors.minlength">Invalid OTP</div>
+                                        </div>
+                                    <div class="col-6">
+                                        {{display}}
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- <span *ngIf="end"><button type="button" class="form-control btn btn-primary rounded submit px-3"
+                                    (click)="resend()">Resend</button> </span> -->
+                                        <span *ngIf="end" style="float: right;"><a href="#"
+                                                (click)="resend()"><span style="color: rgb(2, 2, 177);">Resend OTP</span></a></span>
+                                    </div>
+                                </div>
+                                <span class="clr" *ngIf="count > 3">"Please try again after an hour."</span>
+                            </div>
+                            <!-- {{display}} -->
+
+                            <div class="form-group">
+                                <button type="button" class="form-control btn btn-primary rounded submit px-3"
+                                    (click)="verify()">Verify</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
